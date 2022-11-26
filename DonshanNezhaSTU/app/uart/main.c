@@ -18,6 +18,14 @@ static void write32(uint32_t addr, uint32_t val)
 	*(volatile uint32_t *)(uintptr_t)addr = val;
 }
 
+static void mdelay(int x)
+{
+	int i = 0;
+
+	for (; i < x; i++ );
+
+}
+
 int main()
 {
 	uart_init();
@@ -37,16 +45,27 @@ int main()
 
 	hexstring(read32(0x02000070));
 	hexstring(read32(0x02000060));
-	hexstring(read32(0x6011010));
-	hexstring(read32(0x6011014));
-	hexstring(read32(0x6011018));
-	PUT32(0x6011010, 0x0);
-	PUT32(0x6011014, 0x0);
-	PUT32(0x6011018, 0x0);
-	PUT32(0x6011018, 0x0);
-	hexstring(read32(0x6011010));
-	hexstring(read32(0x6011014));
-	hexstring(read32(0x6011018));
+
+	for (;;) {
+		PUT32(0x02000070, 0);
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		mdelay(100000000);
+		PUT32(0x02000070, 2);
+		mdelay(100000000);
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+		hexstring(GET32(0x02000070));
+	}
 
 
 	return 0;

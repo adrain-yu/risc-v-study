@@ -16,4 +16,4 @@ all: $(OBJS)
 	$(CROSS_COMPILE)gcc -c -o $@ $<
 
 clean:
-	rm $(OBJS) uart.elf uart.bin uart.dis
+	rm *.bin *.o *.elf *.dis
