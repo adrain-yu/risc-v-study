@@ -7,7 +7,7 @@
 
 _start:
 
-    li sp, 0x50040000
+    li sp, 0x5004F000
     jal clear_bss
     jal  main
 
